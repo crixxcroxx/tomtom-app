@@ -20,7 +20,7 @@ const App = () => {
     let res = await fetch(`${url}${ev.target["location"].value}`)
     let search = await res.json()
 
-    if(search.data.length == 1) {
+    if(search.data.length === 1) {
       setLat(search.data[0].latitude)
       setLon(search.data[0].longitude)
     } else {
