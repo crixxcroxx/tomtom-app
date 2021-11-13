@@ -1700,7 +1700,7 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@tomtom-international/web-sdk-maps@^6.15.0":
+"@tomtom-international/web-sdk-maps@^6.15.0", "@tomtom-international/web-sdk-maps@latest":
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/@tomtom-international/web-sdk-maps/-/web-sdk-maps-6.15.0.tgz#0446cd336a62cf106cba67a092f86446dfd64709"
   integrity sha512-LsfvX09OXUg5pEaae0e0uKUQi7bjTeFlZoG2cZsqaaWZ0TDuz15I2pTchHuZ5KCmRQlyMZ6c66RKTh6l3OAtEQ==
@@ -1715,7 +1715,16 @@
     regenerator-runtime "0.12.1"
     uuid "3.3.3"
 
-"@tomtom-international/web-sdk-services@^6.15.0":
+"@tomtom-international/web-sdk-plugin-searchbox@^3.1.11":
+  version "3.1.11"
+  resolved "https://registry.yarnpkg.com/@tomtom-international/web-sdk-plugin-searchbox/-/web-sdk-plugin-searchbox-3.1.11.tgz#48564cb851030af63477c6802dc4dfc66847d6e9"
+  integrity sha512-WeglJ+2kGA85esASrJ8dxvOyA48buqhyd3+rnKpYcJSobgso+d2VSdDpUZOb2JB90RZ44cx+o5KWBOfQznYKHA==
+  dependencies:
+    "@tomtom-international/web-sdk-maps" latest
+    "@tomtom-international/web-sdk-services" latest
+    lodash.debounce "4.0.8"
+
+"@tomtom-international/web-sdk-services@^6.15.0", "@tomtom-international/web-sdk-services@latest":
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/@tomtom-international/web-sdk-services/-/web-sdk-services-6.15.0.tgz#b4dd661c9e66add7633c73a5a129f0f1086cce32"
   integrity sha512-izs5s0Iy7+dKRsINpevPBu8IICpqiIuh6BHesQFW1+AfGEUb/XpAMPAaGy+EP8EYcdgFgpkx1JyiZkUg1Ks3Hw==
@@ -2635,6 +2644,13 @@ axios@0.21.1:
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
     follow-redirects "^1.10.0"
+
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -5161,7 +5177,7 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.2.tgz#dd73c8effc12728ba5cf4259d760ea5fb83e3147"
   integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
 
-follow-redirects@^1.10.0:
+follow-redirects@^1.10.0, follow-redirects@^1.14.4:
   version "1.14.5"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.5.tgz#f09a5848981d3c772b5392309778523f8d85c381"
   integrity sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==
@@ -7091,6 +7107,11 @@ lodash.castarray@4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.castarray/-/lodash.castarray-4.4.0.tgz#c02513515e309daddd4c24c60cfddcf5976d9115"
   integrity sha1-wCUTUV4wna3dTCTGDP3c9ZdtkRU=
+
+lodash.debounce@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.flatten@4.4.0:
   version "4.4.0"

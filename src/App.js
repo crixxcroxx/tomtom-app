@@ -1,35 +1,19 @@
 import { useEffect, useState } from 'react';
-import * as tt from '@tomtom-international/web-sdk-maps';
-/*import * as ttapi from '@tomtom-international/web-sdk-services';*/
+import tt from '@tomtom-international/web-sdk-maps';
+import { services } from '@tomtom-international/web-sdk-services';
+import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox'
+import '@tomtom-international/web-sdk-maps/dist/maps.css'
+import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import './App.css';
 
 const App = () => {
-  const positionstack_key = "b6a2d80cb74268d4b6f819f7bc75e5a0"
-  const url = `http://api.positionstack.com/v1/forward?access_key=${positionstack_key}&query=`
-
-  const [location, setLocation] = useState("")
-  const [searchResults, setSearchResults] = useState([])
-
   const [map, setMap] = useState({})
-  const [lat, setLat] = useState(16.932122)
-  const [lon, setLon] = useState(121.387948)
-
-  async function searchLocation(ev) {
-    ev.preventDefault()
-
-    let res = await fetch(`${url}${ev.target["location"].value}`)
-    let search = await res.json()
-
-    if(search.data.length === 1) {
-      setLat(search.data[0].latitude)
-      setLon(search.data[0].longitude)
-    } else {
-      setSearchResults(search.data)
-    }
-  }
+  const [lat, setLat] = useState(14.6091)
+  const [lon, setLon] = useState(121.0223)
+  //const mapElement = document.querySelector("#mapElement")
 
   useEffect(() => {
-    let map = tt.map({
+    let im = tt.map({
       key: "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl",
       container: "mapElement",
       basePath: "sdk",
@@ -40,40 +24,37 @@ const App = () => {
       },
       center: {lat: lat, lng: lon},
       zoom: 13
+    })
+    setMap(im)
+
+    const options = {
+      searchOptions: {
+        key: "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl",
+        language: 'en-GB',
+        limit: 5
+      },
+      autocompleteOptions: {
+        key: "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl",
+        language: 'en-GB'
+      }
+    }
+    const ttSearchBox = new SearchBox(services, options)
+    ttSearchBox.on('tomtom.searchbox.resultselected', function({data}) {
+      const { lat, lng } = data.result.position
+      setLat(lat)
+      setLon(lng)
     });
 
-    setMap(map)
+    im.addControl(ttSearchBox, 'top-left');
 
-    return () => map.remove()
   }, [lat, lon])
+
+
 
   return (
     <>{ map &&
       <div className="app">
         <div id="mapElement" className="map"></div>
-
-        <form onSubmit={searchLocation}>
-          <input
-            type="app"
-            name="location"
-            placeholder="Search location"
-          />
-          <button>Search</button>
-        </form>
-
-        <div className="search-results">{
-          searchResults.length > 1 &&
-          <ul className="list">{
-            searchResults.map(item =>
-              <li key={item.latitude} onClick={() => {
-                setLat(item.latitude)
-                setLon(item.longitude)
-              }}>
-                {item.label}
-              </li>
-            )
-          }</ul>
-        }</div>
       </div>
     }</>
   );
