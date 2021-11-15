@@ -3,18 +3,37 @@
   flex-direction: column;
 }
 
-.app > * {
-  margin: 0 auto;
-}
-
 .map {
   height: 500px;
   width: 800px;
 }
 
-.list {
-  list-style-type: none;
-  cursor: pointer;
-  color: blue;
+.marker {
+  height: 25px;
+  width: 25px;
+  background-color: red;
 }
 
+.app-controls {
+  max-width: 300px;
+  padding: 2rem;
+  background-color: lightgrey;
+}
+
+.location {
+  max-width: 300px;
+  border: 1px solid grey;
+}
+
+.location > button {
+  width: 100%;
+}
+
+.location-suggestions {
+  margin: 0.5rem;
+  border: 1px solid grey;
+}
+
+.origin {
+  border: 1px solid grey;
+}
