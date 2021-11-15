@@ -14,18 +14,18 @@
   background-color: red;
 }
 
-.app-controls {
+.side {
   max-width: 300px;
   padding: 2rem;
   background-color: lightgrey;
 }
 
-.location {
+.locations {
   max-width: 300px;
   border: 1px solid grey;
 }
 
-.location > button {
+.locations > button {
   width: 100%;
 }
 
@@ -35,5 +35,10 @@
 }
 
 .origin {
+  border: 1px solid grey;
+}
+
+.destinations-list
+{
   border: 1px solid grey;
 }
