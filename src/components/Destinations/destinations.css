@@ -1,1 +1,8 @@
- 
+.destinations-list {
+  border: 1px solid grey;
+}
+
+.destinations-list > ul {
+  max-height: 200px;
+  overflow: auto;
+}

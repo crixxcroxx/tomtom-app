@@ -7,7 +7,7 @@ import './side.css';
 export default function Side({side}) {
   const {origin, location, locationSuggestions, destinations} = side.data
   const {setOrigin, setLocation, setDestinations} = side.methods
-  const loc = {
+  const locations = {
     data: {origin, location, locationSuggestions, destinations},
     methods: {setOrigin, setLocation, setDestinations}
   }
@@ -15,7 +15,7 @@ export default function Side({side}) {
   return (
     <div className="side">
       <Origin origin={origin} />
-      <Locations locations={loc} />
+      <Locations locations={locations} />
       <Destinations destinations={destinations} />
     </div>
   )

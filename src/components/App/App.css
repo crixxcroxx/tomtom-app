@@ -1,44 +1,15 @@
 .app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 3fr auto;
 }
 
 .map {
-  height: 500px;
-  width: 800px;
+  height: 100%;
+  width: 100%;
 }
 
 .marker {
   height: 25px;
   width: 25px;
   background-color: red;
-}
-
-.side {
-  max-width: 300px;
-  padding: 2rem;
-  background-color: lightgrey;
-}
-
-.locations {
-  max-width: 300px;
-  border: 1px solid grey;
-}
-
-.locations > button {
-  width: 100%;
-}
-
-.location-suggestions {
-  margin: 0.5rem;
-  border: 1px solid grey;
-}
-
-.origin {
-  border: 1px solid grey;
-}
-
-.destinations-list
-{
-  border: 1px solid grey;
 }

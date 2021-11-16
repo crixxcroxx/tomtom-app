@@ -8,6 +8,7 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 
 export default function useMap() {
+  const url = `https://api.tomtom.com/search/2`
   const tomtom_key = "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl"
   const [map, setMap] = useState({})
   const [lat, setLat] = useState(14.5454)
@@ -17,15 +18,11 @@ export default function useMap() {
   const [location, setLocation] = useState({})
   const [destinations, setDestinations] = useState([])
 
-  const positionstack_key = "b6a2d80cb74268d4b6f819f7bc75e5a0"
-  const positionstack_url = `http://api.positionstack.com/v1/reverse?access_key=${positionstack_key}&query` /*{lat, lon}*/
-
-
   const getLocationInfo = async (data) => {
-    let res = await fetch(`${positionstack_url}=${data.lat},${data.lng}`)
+    let res = await fetch(`${url}/nearbySearch/.json?lat=${data.lat}&lon=${data.lng}&radius=1000&key=${tomtom_key}`)
     let resData = await res.json()
 
-    setLocationSuggestions(resData.data)
+    setLocationSuggestions(resData.results)
   }
 
   /*search*/

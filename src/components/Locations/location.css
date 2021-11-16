@@ -1,1 +1,21 @@
- 
+.locations {
+  max-width: 300px;
+  border: 1px solid grey;
+}
+
+.locations > div {
+  max-height: 250px;
+  overflow: auto;
+}
+
+.locations > button {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+}
+
+.location-suggestions {
+  margin: 0.5rem;
+  cursor: pointer;
+  border: 1px solid grey;
+}

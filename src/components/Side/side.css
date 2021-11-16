@@ -1,1 +1,12 @@
- 
+.side {
+  min-height: calc(100vh - 2rem);
+  max-width: 250px;
+  padding: 1rem;
+  background-color: lightgrey;
+}
+
+.side > * + * {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+

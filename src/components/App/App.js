@@ -15,12 +15,10 @@ const App = () => {
   }
 
   return (
-    <>{
-      <div className="app">
-        <div id="mapElement" className="map"></div>
-        <Side side={side}/>
-      </div>
-    }</>
+    <div className="app">
+      <div id="mapElement" className="map"></div>
+      <Side side={side}/>
+    </div>
   );
 }
 
