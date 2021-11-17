@@ -8,7 +8,7 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 
 export default function useMap() {
-  const url = `https://api.tomtom.com/search/2`
+  const base_url = `https://api.tomtom.com/search/2`
   const tomtom_key = "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl"
   const [map, setMap] = useState({})
   const [lat, setLat] = useState(14.5454)
@@ -20,7 +20,7 @@ export default function useMap() {
 
   /* get nearby points of interest */
   const getNearbyPOI = async (data) => {
-    let res = await fetch(`${url}/nearbySearch/.json?lat=${data.lat}&lon=${data.lng}&radius=1000&key=${tomtom_key}`)
+    let res = await fetch(`${base_url}/nearbySearch/.json?lat=${data.lat}&lon=${data.lng}&radius=1000&key=${tomtom_key}`)
     let resData = await res.json()
 
     setLocationSuggestions(resData.results)

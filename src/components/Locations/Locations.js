@@ -1,8 +1,21 @@
+import { useState, useEffect } from 'react';
 import './location.css';
 
 export default function Locations({locations}) {
   const {origin, location, locationSuggestions, destinations} = locations.data
   const {setOrigin, setLocation, setDestinations} = locations.methods
+  const [divID, setDivID] = useState("")
+
+  useEffect(() => {
+    toggleIsActive("red")
+
+    return () => { if(divID) toggleIsActive("black") }
+  }, [divID])
+
+  const toggleIsActive = (clr) => {
+    const child = document.getElementById(divID)
+    if(child) child.style.color = clr
+  }
 
   return(
     <>{
@@ -13,12 +26,16 @@ export default function Locations({locations}) {
         {Object.keys(origin).length === 0 &&
           <p><i>Choose your origin location</i></p>
         }
-        <div>{
+        <div className="location-suggestions">{
           locationSuggestions.map(loc => (
             <div
-              className="location-suggestions"
+              className="location"
               key={`${loc.id}`}
-              onClick={e => setLocation(loc)}
+              id={`${loc.info}`}
+              onClick={e => {
+                setLocation(loc)
+                setDivID(`${loc.info}`)
+              }}
             >
               <h3>{loc.poi.name}</h3>
               <i>{loc.poi.categories[0]}</i>
