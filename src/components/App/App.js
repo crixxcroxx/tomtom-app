@@ -1,5 +1,7 @@
 import useMap from '../../hooks/useMap';
 import Side from '../Side/Side';
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 

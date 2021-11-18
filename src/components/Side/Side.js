@@ -14,9 +14,30 @@ export default function Side({side}) {
 
   return (
     <div className="side">
-      <Origin origin={origin} />
-      <Locations locations={locations} />
-      <Destinations destinations={destinations} />
+      <Origin origin={{org: origin, locS: locationSuggestions}} />
+
+      { locationSuggestions.length > 0 &&
+      <div className="side-tabs-container">
+        <ul className="nav nav-tabs" id="" role="tablist">
+          <li className="nav-item" role="presentation">
+            <button className="nav-link active" id="locations-tab" data-bs-toggle="tab" data-bs-target="#locations" type="button" role="tab" aria-controls="locations" aria-selected="true">Locations</button>
+          </li>
+          <li className="nav-item" role="presentation">
+            <button className="nav-link" id="destinations-tab" data-bs-toggle="tab" data-bs-target="#destinations" type="button" role="tab" aria-controls="destinations" aria-selected="false">Destinations</button>
+          </li>
+        </ul>
+
+        <div className="tab-content" id="">
+          <div className="tab-pane fade show active locations-tab" id="locations" role="tabpanel" aria-labelledby="locations-tab">
+            <Locations locations={locations} />
+          </div>
+          <div className="tab-pane fade" id="destinations" role="tabpanel" aria-labelledby="destinations-tab">
+            <Destinations destinations={destinations} />
+          </div>
+        </div>
+      </div>
+      }
+
     </div>
   )
 }

@@ -7,25 +7,23 @@ export default function Locations({locations}) {
   const [divID, setDivID] = useState("")
 
   useEffect(() => {
-    toggleIsActive("red")
+    toggleIsActive("#0b5ed7")
 
-    return () => { if(divID) toggleIsActive("black") }
+    return () => { if(divID) toggleIsActive("#33383c") }
   }, [divID])
 
   const toggleIsActive = (clr) => {
     const child = document.getElementById(divID)
-    if(child) child.style.color = clr
+    if(child) {
+      child.style.color = clr
+      clr == "#0b5ed7" ? child.style.borderColor = clr : child.style.borderColor = "lightgrey"
+    }
   }
 
   return(
     <>{
-      locationSuggestions.length > 0 && <div className="locations">
-        {Object.keys(origin).length > 0 &&
-          <p><i>Choose any locations below to add to destination</i></p>
-        }
-        {Object.keys(origin).length === 0 &&
-          <p><i>Choose your origin location</i></p>
-        }
+      locationSuggestions.length > 0 && <div className="locations" onSubmit={handleForm}>
+
         <div className="location-suggestions">{
           locationSuggestions.map(loc => (
             <div
@@ -44,10 +42,16 @@ export default function Locations({locations}) {
           ))
         }</div>
         { Object.keys(origin).length > 0 &&
-          <button onClick={e => setDestinations([location, ...destinations])}>Add</button>
+          <button
+            className="btn btn-primary"
+            onClick={e => setDestinations([location, ...destinations])}
+          >Add</button>
         }
         { Object.keys(origin).length === 0 &&
-          <button onClick={e => setOrigin(location)}>Set Origin</button>
+          <button
+            className="btn btn-primary"
+            onClick={e => setOrigin(location)}
+          >Set Origin</button>
         }
       </div>
     }</>
