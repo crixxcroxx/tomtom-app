@@ -1,26 +1,39 @@
 import useMap from '../../hooks/useMap';
 import Side from '../Side/Side';
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import '@tomtom-international/web-sdk-maps/dist/maps.css'
+import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
+
+import { Container, Row, Col } from 'react-bootstrap';
 
 import './App.css';
 
 const App = () => {
   const {
     origin, location, locationSuggestions, destinations,
-    setOrigin, setLocation, setDestinations
+    setOrigin, setLocation, addDestination
   } = useMap()
 
   const side = {
     data: {origin, location, locationSuggestions, destinations},
-    methods: {setOrigin, setLocation, setDestinations}
+    methods: {setOrigin, setLocation, addDestination}
   }
 
-  return (
-    <div className="app">
+  /*{<div className="app">
       <div id="mapElement" className="map"></div>
       <Side side={side}/>
-    </div>
+    </div>}*/
+
+  return (
+    <Container fluid>
+      <Row>
+        <Col id="mapElement"></Col>
+
+        <Col md="4">
+          <Side side={side}/>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

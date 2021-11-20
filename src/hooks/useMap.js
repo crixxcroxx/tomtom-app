@@ -4,9 +4,6 @@ import tt from '@tomtom-international/web-sdk-maps';
 import { services } from '@tomtom-international/web-sdk-services';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox'
 
-import '@tomtom-international/web-sdk-maps/dist/maps.css'
-import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
-
 export default function useMap() {
   const base_url = `https://api.tomtom.com/search/2`
   const tomtom_key = "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl"
@@ -24,6 +21,13 @@ export default function useMap() {
     let resData = await res.json()
 
     setLocationSuggestions(resData.results)
+  }
+
+
+  const addDestination = (obj) => {
+    obj.custom_id = destinations.length + 1
+
+    setDestinations([obj, ...destinations])
   }
 
 
@@ -235,6 +239,6 @@ export default function useMap() {
 
   return {
     origin, location, locationSuggestions, destinations,
-    setOrigin, setLocation, setDestinations
+    setOrigin, setLocation, addDestination
   }
 }

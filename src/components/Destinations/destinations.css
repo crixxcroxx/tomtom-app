@@ -1,10 +1,10 @@
-.destinations-list {
-  margin: 0.5rem 0;
-  border-radius: 5px;
-  border: 1px solid lightgrey;
+.destinations {
+  height: calc(100vh - 15.75rem);
+
 }
 
-.destinations-list > ul {
-  height: calc(100vh - 17.5rem);
+.destinations-list {
+  height: calc(100%);
   overflow: auto;
+  list-style-type: none;
 }

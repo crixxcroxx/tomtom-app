@@ -1,15 +1,6 @@
-.app {
-  display: grid;
-  grid-template-columns: 3fr auto;
-}
-
-.map {
-  height: 100%;
-  width: 100%;
-}
-
 .marker {
   height: 25px;
   width: 25px;
-  background-color: red;
+  color: red;
+  z-index: 999;
 }

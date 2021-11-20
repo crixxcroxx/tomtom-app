@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+
+import { Stack } from 'react-bootstrap';
+
 import './location.css';
 
 export default function Locations({locations}) {
   const {origin, location, locationSuggestions, destinations} = locations.data
-  const {setOrigin, setLocation, setDestinations} = locations.methods
+  const {setOrigin, setLocation, addDestination} = locations.methods
   const [divID, setDivID] = useState("")
 
   useEffect(() => {
@@ -16,15 +19,15 @@ export default function Locations({locations}) {
     const child = document.getElementById(divID)
     if(child) {
       child.style.color = clr
-      clr == "#0b5ed7" ? child.style.borderColor = clr : child.style.borderColor = "lightgrey"
+      clr === "#0b5ed7" ? child.style.borderColor = clr : child.style.borderColor = "lightgrey"
     }
   }
 
   return(
     <>{
-      locationSuggestions.length > 0 && <div className="locations" onSubmit={handleForm}>
+      locationSuggestions.length > 0 && <div className="locations">
 
-        <div className="location-suggestions">{
+        <Stack gap={3} className="location-suggestions">{
           locationSuggestions.map(loc => (
             <div
               className="location"
@@ -40,11 +43,11 @@ export default function Locations({locations}) {
               <p>{loc.address.freeformAddress}</p>
             </div>
           ))
-        }</div>
+        }</Stack>
         { Object.keys(origin).length > 0 &&
           <button
             className="btn btn-primary"
-            onClick={e => setDestinations([location, ...destinations])}
+            onClick={e => addDestination(location)}
           >Add</button>
         }
         { Object.keys(origin).length === 0 &&

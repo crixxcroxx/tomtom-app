@@ -1,11 +1,7 @@
 .origin {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   height: 10rem;
-  padding: 0.5rem;
+  padding: 1rem;
+  overflow: auto;
   border-radius: 5px;
   border: 1px solid lightgrey;
 }

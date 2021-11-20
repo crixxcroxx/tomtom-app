@@ -1,25 +1,18 @@
 .location-suggestions {
-  max-height: calc(100vh - 18.8rem);
-  margin: 0.5rem 0;
+  height: calc(100vh - 18.25rem);
   overflow: auto;
 }
 
 .locations > button {
+  margin-top: 0.25rem;
   width: 100%;
 }
 
 .location {
-  margin: 0.5rem 0.25rem;
+  margin-right: 0.25rem;
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid lightgrey;
 }
 
-.btn:focus,
-.btn:active,
-.btn:focus-visible
-.btn:focus-within {
-  outline: none;
-  box-shadow: none;
-}
