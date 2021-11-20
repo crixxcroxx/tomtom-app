@@ -1,6 +1,26 @@
 .marker {
-  height: 25px;
-  width: 25px;
-  color: red;
-  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: ;
+  height: 30px;
+  width: 30px;
+  margin-top: -5px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  border: 3px solid red;
+  background-color: white;
+}
+
+.marker::after {
+  content: '';
+  position: absolute;
+  inset: 24px 0 0 3px;
+  height: 10px;
+  width: 18px;
+  clip-path: polygon(0% 0%,100% 0%,50% 100%);
+  background-color: red;
+  z-index: 0;
 }

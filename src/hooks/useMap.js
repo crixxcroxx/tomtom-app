@@ -62,10 +62,11 @@ export default function useMap() {
   const ttSearchBox = new SearchBox(services, search_options)
 
   /* marker */
-  const marker = (coords) => {
+  const marker = (coords, idx) => {
     // create container element for marker
     const markerElement = document.createElement('div')
     markerElement.className = 'marker'
+    markerElement.innerText = idx
 
     // create marker
     const mrkr = new tt.Marker({
@@ -221,7 +222,7 @@ export default function useMap() {
       marker({
         lat: origin.position.lat,
         lng: origin.position.lon
-      }).addTo(map)
+      }, 0).addTo(map)
     }
 
     // add marker to map when new destination is added
@@ -229,11 +230,12 @@ export default function useMap() {
       marker({
         lat: destinations[0].position.lat,
         lng: destinations[0].position.lon
-      }).addTo(map)
+      }, destinations[0].custom_id).addTo(map)
     }
 
     // recalculate route matrix when a new destination is added
     recalculateRoute()
+
   }, [origin, destinations])
 
 
