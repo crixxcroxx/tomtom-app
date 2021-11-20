@@ -22,7 +22,7 @@ export default function Locations({locations}) {
 
   return(
     <>{
-      locationSuggestions.length > 0 && <div className="locations" onSubmit={handleForm}>
+      locationSuggestions.length > 0 && <div className="locations">
 
         <div className="location-suggestions">{
           locationSuggestions.map(loc => (
