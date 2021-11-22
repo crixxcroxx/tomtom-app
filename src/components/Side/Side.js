@@ -2,21 +2,33 @@ import Origin from '../Origin/Origin';
 import Locations from '../Locations/Locations';
 import Destinations from '../Destinations/Destinations';
 
+import { Stack, Tabs, Tab } from 'react-bootstrap';
+
 import './side.css';
 
 export default function Side({side}) {
-  const {origin, location, locationSuggestions, destinations} = side.data
-  const {setOrigin, setLocation, setDestinations} = side.methods
+  const {origin, location, locationSuggestions, destinations, matrixData} = side.data
+  const {setOrigin, setLocation, addDestination} = side.methods
   const locations = {
-    data: {origin, location, locationSuggestions, destinations},
-    methods: {setOrigin, setLocation, setDestinations}
+    data: {origin, location, locationSuggestions},
+    methods: {setOrigin, setLocation, addDestination}
   }
 
   return (
-    <div className="side">
-      <Origin origin={origin} />
-      <Locations locations={locations} />
-      <Destinations destinations={destinations} />
-    </div>
+    <Stack gap={2} className="side">
+      <Origin origin={{org: origin, locS: locationSuggestions}} />
+
+      { locationSuggestions.length > 0 &&
+      <Tabs defaultActiveKey="locations" transition={true}>
+        <Tab eventKey="locations" title="Locations">
+          <Locations locations={locations} />
+        </Tab>
+        <Tab eventKey="destinations" title="Destinations">
+          <Destinations destinations={{dests: destinations, matrixData: matrixData}} />
+        </Tab>
+      </Tabs>
+      }
+
+    </Stack>
   )
 }

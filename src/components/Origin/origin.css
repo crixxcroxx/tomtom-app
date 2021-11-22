@@ -1,5 +1,15 @@
 .origin {
-  padding: 0.5rem;
-  border: 1px solid grey;
+  height: 10rem;
+  padding: 1rem;
+  overflow: auto;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
 }
 
+h3, p {
+  text-align: left;
+}
+
+i {
+  text-align: center;
+}
