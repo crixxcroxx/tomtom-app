@@ -1,10 +1,12 @@
+import { Container } from 'react-bootstrap';
+
 import './origin.css';
 
 export default function Origin(props) {
   const {org: origin, locS: locationSuggestions} = props.origin
 
   return (
-    <div className="origin">
+    <Container className="origin">
       { locationSuggestions.length === 0 &&
         <i>Search or Click on the map to select location</i>
       }
@@ -19,6 +21,6 @@ export default function Origin(props) {
           <i>{origin.address.freeformAddress}</i>
         </>
       }
-    </div>
+    </Container>
   )
 }

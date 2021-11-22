@@ -4,9 +4,6 @@ import tt from '@tomtom-international/web-sdk-maps';
 import { services } from '@tomtom-international/web-sdk-services';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox'
 
-import '@tomtom-international/web-sdk-maps/dist/maps.css'
-import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
-
 export default function useMap() {
   const base_url = `https://api.tomtom.com/search/2`
   const tomtom_key = "AzOyG5FQGdrRudBEBua0GpMXt5xNWGrl"
@@ -17,6 +14,7 @@ export default function useMap() {
   const [location, setLocation] = useState({})
   const [locationSuggestions, setLocationSuggestions] = useState([])
   const [destinations, setDestinations] = useState([])
+  const [matrixData, setMatrixData] = useState([])
 
   /* get nearby points of interest */
   const getNearbyPOI = async (data) => {
@@ -24,6 +22,13 @@ export default function useMap() {
     let resData = await res.json()
 
     setLocationSuggestions(resData.results)
+  }
+
+
+  const addDestination = (obj) => {
+    obj.custom_id = destinations.length + 1
+
+    setDestinations([obj, ...destinations])
   }
 
 
@@ -58,10 +63,11 @@ export default function useMap() {
   const ttSearchBox = new SearchBox(services, search_options)
 
   /* marker */
-  const marker = (coords) => {
+  const marker = (coords, org) => {
     // create container element for marker
     const markerElement = document.createElement('div')
     markerElement.className = 'marker'
+    if(org === 1) markerElement.style.backgroundColor = 'yellow'
 
     // create marker
     const mrkr = new tt.Marker({
@@ -109,6 +115,8 @@ export default function useMap() {
       origins: [formatPoints(origin.position)],
     }
 
+    const matrix_data = []
+
     return new Promise((resolve, reject) => {
       // call tomtom services for matrix routing
       services
@@ -122,17 +130,22 @@ export default function useMap() {
                 lat: locations[index].position.lat
               },
               drivingtime: result.response.routeSummary.travelTimeInSeconds,
+              distance: result.response.routeSummary.lengthInMeters,
+              idx: index
             }
           })
-
+          console.log(results)
           // sort routes(time)
           resultsArray.sort((a, b) => {
             return a.drivingtime - b.drivingtime
           })
 
           const sortedLocations = resultsArray.map((result) => {
+            matrix_data.push(result)
             return result.location
           })
+
+          setMatrixData(matrix_data)
 
           resolve(sortedLocations)
         })
@@ -196,7 +209,7 @@ export default function useMap() {
       })
 
       // add marker on location and get nearby points of interest
-      marker(data.result.position).addTo(iMap)
+      //marker(data.result.position).addTo(iMap)
       getNearbyPOI(data.result.position)
     })
 
@@ -209,23 +222,33 @@ export default function useMap() {
 
 
   /* routing */
-  // note I separated this to prevent map rerender
-  // every time a new destination is being added
   useEffect(() => {
     // add marker to map when origin is set
     if(Object.keys(origin).length > 0) {
+      // create popup
+      const popup = new tt.Popup({
+        offset: {
+          bottom: [0, -30] }
+      }).setHTML(`${origin.poi.name}, ${origin.address.municipality}`)
+
       marker({
         lat: origin.position.lat,
         lng: origin.position.lon
-      }).addTo(map)
+      }, 1).addTo(map).setPopup(popup)
     }
 
     // add marker to map when new destination is added
     if(destinations.length > 0) {
+      // create popup
+      const popup = new tt.Popup({
+        offset: {
+          bottom: [0, -30] }
+      }).setHTML(`${destinations[0].poi.name}, ${destinations[0].address.municipality}`)
+
       marker({
         lat: destinations[0].position.lat,
         lng: destinations[0].position.lon
-      }).addTo(map)
+      }, 0).addTo(map).setPopup(popup)
     }
 
     // recalculate route matrix when a new destination is added
@@ -234,7 +257,7 @@ export default function useMap() {
 
 
   return {
-    origin, location, locationSuggestions, destinations,
-    setOrigin, setLocation, setDestinations
+    origin, location, locationSuggestions, destinations, matrixData,
+    setOrigin, setLocation, addDestination
   }
 }
