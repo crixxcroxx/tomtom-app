@@ -7,10 +7,10 @@ import { Stack, Tabs, Tab } from 'react-bootstrap';
 import './side.css';
 
 export default function Side({side}) {
-  const {origin, location, locationSuggestions, destinations} = side.data
+  const {origin, location, locationSuggestions, destinations, matrixData} = side.data
   const {setOrigin, setLocation, addDestination} = side.methods
   const locations = {
-    data: {origin, location, locationSuggestions, destinations},
+    data: {origin, location, locationSuggestions},
     methods: {setOrigin, setLocation, addDestination}
   }
 
@@ -24,7 +24,7 @@ export default function Side({side}) {
           <Locations locations={locations} />
         </Tab>
         <Tab eventKey="destinations" title="Destinations">
-          <Destinations destinations={destinations} />
+          <Destinations destinations={{dests: destinations, matrixData: matrixData}} />
         </Tab>
       </Tabs>
       }

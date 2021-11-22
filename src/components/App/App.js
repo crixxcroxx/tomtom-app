@@ -10,19 +10,14 @@ import './App.css';
 
 const App = () => {
   const {
-    origin, location, locationSuggestions, destinations,
+    origin, location, locationSuggestions, destinations, matrixData,
     setOrigin, setLocation, addDestination
   } = useMap()
 
   const side = {
-    data: {origin, location, locationSuggestions, destinations},
+    data: {origin, location, locationSuggestions, destinations, matrixData},
     methods: {setOrigin, setLocation, addDestination}
   }
-
-  /*{<div className="app">
-      <div id="mapElement" className="map"></div>
-      <Side side={side}/>
-    </div>}*/
 
   return (
     <Container fluid>

@@ -5,7 +5,7 @@ import { Stack } from 'react-bootstrap';
 import './location.css';
 
 export default function Locations({locations}) {
-  const {origin, location, locationSuggestions, destinations} = locations.data
+  const {origin, location, locationSuggestions} = locations.data
   const {setOrigin, setLocation, addDestination} = locations.methods
   const [divID, setDivID] = useState("")
 
