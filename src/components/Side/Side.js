@@ -8,10 +8,14 @@ import './side.css';
 
 export default function Side({side}) {
   const {origin, location, locationSuggestions, destinations, matrixData} = side.data
-  const {setOrigin, setLocation, addDestination} = side.methods
+  const {setOrigin, setLocation, setDestinations} = side.methods
   const locations = {
-    data: {origin, location, locationSuggestions},
-    methods: {setOrigin, setLocation, addDestination}
+    data: {origin, location, destinations, locationSuggestions},
+    methods: {setOrigin, setLocation, setDestinations}
+  }
+  const dests = {
+    data: {destinations, matrixData},
+    methods: {setDestinations}
   }
 
   return (
@@ -24,7 +28,7 @@ export default function Side({side}) {
           <Locations locations={locations} />
         </Tab>
         <Tab eventKey="destinations" title="Destinations">
-          <Destinations destinations={{dests: destinations, matrixData: matrixData}} />
+          <Destinations dests={dests} />
         </Tab>
       </Tabs>
       }

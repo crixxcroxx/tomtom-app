@@ -5,9 +5,15 @@ import { Stack } from 'react-bootstrap';
 import './location.css';
 
 export default function Locations({locations}) {
-  const {origin, location, locationSuggestions} = locations.data
-  const {setOrigin, setLocation, addDestination} = locations.methods
+  const {origin, location, destinations, locationSuggestions} = locations.data
+  const {setOrigin, setLocation, setDestinations} = locations.methods
   const [divID, setDivID] = useState("")
+
+  const addDestination = (obj) => {
+    obj.custom_id = destinations.length + 1
+
+    setDestinations([obj, ...destinations])
+  }
 
   useEffect(() => {
     toggleIsActive("#0b5ed7")

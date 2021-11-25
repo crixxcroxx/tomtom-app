@@ -25,13 +25,6 @@ export default function useMap() {
   }
 
 
-  const addDestination = (obj) => {
-    obj.custom_id = destinations.length + 1
-
-    setDestinations([obj, ...destinations])
-  }
-
-
   /* format points to follow one form */
   const formatPoints = (coords) => {
     return {
@@ -134,7 +127,7 @@ export default function useMap() {
               idx: index
             }
           })
-          console.log(results)
+
           // sort routes(time)
           resultsArray.sort((a, b) => {
             return a.drivingtime - b.drivingtime
@@ -258,6 +251,6 @@ export default function useMap() {
 
   return {
     origin, location, locationSuggestions, destinations, matrixData,
-    setOrigin, setLocation, addDestination
+    setOrigin, setLocation, setDestinations
   }
 }
