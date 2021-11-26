@@ -11,7 +11,6 @@ export default function useMap() {
   const [lat, setLat] = useState(14.5454)
   const [lng, setLng] = useState(121.0687)
   const [origin, setOrigin] = useState({})
-  const [location, setLocation] = useState({})
   const [locationSuggestions, setLocationSuggestions] = useState([])
   const [destinations, setDestinations] = useState([])
   const [matrixData, setMatrixData] = useState([])
@@ -25,7 +24,9 @@ export default function useMap() {
   }
 
 
-  /* format points to follow one form */
+  /* format points to follow this form
+     this will be used in matrix calculation
+     provided by tomtom */
   const formatPoints = (coords) => {
     return {
       point: {
@@ -35,9 +36,18 @@ export default function useMap() {
     }
   }
 
+  /* remove all markers */
+  const removeMarkers = () => {
+    //let parent = document.querySelector('.mapboxgl-canvas-container.mapboxgl-interactive.mapboxgl-touch-drag-pan.mapboxgl-touch-zoom-rotate')
+    let q = document.querySelectorAll('#custom-marker.marker')
+    let arr = Object.keys(q)
 
-  /* search box options */
-  const search_options = {
+    arr.map(e => document.querySelector('#custom-marker.marker').remove())
+  }
+
+
+  /* search box */
+  const ttSearchBox = new SearchBox(services, {
     idleTimePress: 200,
     minNumberOfCharacters: 0,
     searchOptions: {
@@ -50,17 +60,17 @@ export default function useMap() {
       language: 'en-GB'
     },
     noResultsMessage: 'No results found.'
-  }
-
-  // search instance
-  const ttSearchBox = new SearchBox(services, search_options)
+  })
 
   /* marker */
-  const marker = (coords, org) => {
+  const marker = (coords, caller) => {
     // create container element for marker
     const markerElement = document.createElement('div')
     markerElement.className = 'marker'
-    if(org === 1) markerElement.style.backgroundColor = 'yellow'
+    markerElement.id = 'custom-marker'
+
+    // caller === 1 is origin
+    if(caller === 1) markerElement.style.backgroundColor = 'yellow'
 
     // create marker
     const mrkr = new tt.Marker({
@@ -71,9 +81,30 @@ export default function useMap() {
     return mrkr
   }
 
-  /* route path layer */
+  /* popup */
+  const popup = (obj, caller) => {
+    let element = ''
+
+    // caller === 1 is origin
+    if(caller === 1) {
+      element = `<p>${origin.poi.name}, ${origin.address.municipality}</p>`
+    } else {
+      element = `<p>
+        ${obj.poi.name},
+        ${obj.address.municipality} </p>`
+    }
+
+    const pu = new tt.Popup({
+      offset: {
+      bottom: [0, -30] }
+    }).setHTML(element)
+
+    return pu
+  }
+
+  /* route path */
   const drawRoute = (geoJson, map) => {
-    // remove first old layer if any
+    // remove old layer
     if (map.getLayer('route')) {
       map.removeLayer('route')
       map.removeSource('route')
@@ -95,7 +126,7 @@ export default function useMap() {
     })
   }
 
-  /* sort destinations routes */
+  /* sort destination routes */
   const sortDestinations = (locations) => {
     // create formatted points array
     const pointsForDestinations = locations.map((loc) => {
@@ -201,8 +232,6 @@ export default function useMap() {
         zoom: 13
       })
 
-      // add marker on location and get nearby points of interest
-      //marker(data.result.position).addTo(iMap)
       getNearbyPOI(data.result.position)
     })
 
@@ -216,41 +245,37 @@ export default function useMap() {
 
   /* routing */
   useEffect(() => {
+    removeMarkers()
+
     // add marker to map when origin is set
     if(Object.keys(origin).length > 0) {
       // create popup
-      const popup = new tt.Popup({
-        offset: {
-          bottom: [0, -30] }
-      }).setHTML(`${origin.poi.name}, ${origin.address.municipality}`)
+      let pu = popup({}, 1)
 
-      marker({
+      //create marker then add both to map
+      let mrkr = marker({
         lat: origin.position.lat,
         lng: origin.position.lon
-      }, 1).addTo(map).setPopup(popup)
+      }, 1).addTo(map).setPopup(pu)
     }
 
     // add marker to map when new destination is added
     if(destinations.length > 0) {
-      // create popup
-      const popup = new tt.Popup({
-        offset: {
-          bottom: [0, -30] }
-      }).setHTML(`${destinations[0].poi.name}, ${destinations[0].address.municipality}`)
-
-      marker({
-        lat: destinations[0].position.lat,
-        lng: destinations[0].position.lon
-      }, 0).addTo(map).setPopup(popup)
+      destinations.map(dest => marker({
+        lat: dest.position.lat,
+        lng: dest.position.lon
+      }, 0).addTo(map).setPopup(popup(dest, 0)))
     }
 
-    // recalculate route matrix when a new destination is added
+    /* recalculate route matrix when
+       destinations have changed,
+       i.e. added new destination or deleted */
     recalculateRoute()
   }, [origin, destinations])
 
 
   return {
-    origin, location, locationSuggestions, destinations, matrixData,
-    setOrigin, setLocation, setDestinations
+    origin, locationSuggestions, destinations, matrixData,
+    setOrigin, setDestinations
   }
 }

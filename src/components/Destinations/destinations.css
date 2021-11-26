@@ -19,7 +19,7 @@
 
 /*bootstrap override*/
 .accordion-body:not(.collapsed) {
-  background-color: #f1f7ff !important;
+  background-color: #f6f9fb !important;
 }
 
 .alert-info {

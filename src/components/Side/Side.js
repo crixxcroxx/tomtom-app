@@ -7,11 +7,11 @@ import { Stack, Tabs, Tab } from 'react-bootstrap';
 import './side.css';
 
 export default function Side({side}) {
-  const {origin, location, locationSuggestions, destinations, matrixData} = side.data
-  const {setOrigin, setLocation, setDestinations} = side.methods
+  const {origin, locationSuggestions, destinations, matrixData} = side.data
+  const {setOrigin, setDestinations} = side.methods
   const locations = {
-    data: {origin, location, destinations, locationSuggestions},
-    methods: {setOrigin, setLocation, setDestinations}
+    data: {origin, destinations, locationSuggestions},
+    methods: {setOrigin, setDestinations}
   }
   const dests = {
     data: {destinations, matrixData},

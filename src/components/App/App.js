@@ -10,13 +10,13 @@ import './App.css';
 
 const App = () => {
   const {
-    origin, location, locationSuggestions, destinations, matrixData,
-    setOrigin, setLocation, setDestinations
+    origin, locationSuggestions, destinations, matrixData,
+    setOrigin, setDestinations
   } = useMap()
 
   const side = {
-    data: {origin, location, locationSuggestions, destinations, matrixData},
-    methods: {setOrigin, setLocation, setDestinations}
+    data: {origin, locationSuggestions, destinations, matrixData},
+    methods: {setOrigin, setDestinations}
   }
 
   return (

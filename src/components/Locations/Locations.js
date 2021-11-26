@@ -5,8 +5,9 @@ import { Stack } from 'react-bootstrap';
 import './location.css';
 
 export default function Locations({locations}) {
-  const {origin, location, destinations, locationSuggestions} = locations.data
-  const {setOrigin, setLocation, setDestinations} = locations.methods
+  const {origin, destinations, locationSuggestions} = locations.data
+  const {setOrigin, setDestinations} = locations.methods
+  const [location, setLocation] = useState({})
   const [divID, setDivID] = useState("")
 
   const addDestination = (obj) => {
@@ -15,12 +16,6 @@ export default function Locations({locations}) {
     setDestinations([obj, ...destinations])
   }
 
-  useEffect(() => {
-    toggleIsActive("#0b5ed7")
-
-    return () => { if(divID) toggleIsActive("#33383c") }
-  }, [divID])
-
   const toggleIsActive = (clr) => {
     const child = document.getElementById(divID)
     if(child) {
@@ -28,6 +23,12 @@ export default function Locations({locations}) {
       clr === "#0b5ed7" ? child.style.borderColor = clr : child.style.borderColor = "lightgrey"
     }
   }
+
+  useEffect(() => {
+    toggleIsActive("#0b5ed7")
+
+    return () => { if(divID) toggleIsActive("#33383c") }
+  }, [divID])
 
   return(
     <>{
