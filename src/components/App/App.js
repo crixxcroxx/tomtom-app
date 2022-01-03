@@ -9,15 +9,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import './App.css';
 
 const App = () => {
-  const {
-    origin, locationSuggestions, destinations, matrixData,
-    setOrigin, setDestinations
-  } = useMap()
-
-  const side = {
-    data: {origin, locationSuggestions, destinations, matrixData},
-    methods: {setOrigin, setDestinations}
-  }
+  useMap()
 
   return (
     <Container fluid>
@@ -25,7 +17,7 @@ const App = () => {
         <Col id="mapElement"></Col>
 
         <Col md="4">
-          <Side side={side}/>
+          <Side />
         </Col>
       </Row>
     </Container>

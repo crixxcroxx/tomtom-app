@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Accordion, Alert, Button } from 'react-bootstrap';
 
+import useStore from "../../zustand/store";
+
 import './destinations.css';
 
-export default function Destinations({dests}) {
-  const {destinations, matrixData} = dests.data
-  const {setDestinations} = dests.methods
+export default function Destinations() {
   const [orderedDestinations, setOrderedDestinations] = useState([])
 
+  const {
+    matrixData,
+    destinations,
+    setDestinations
+  } = useStore(state => state)
 
   const updateOrder = () => {
     let temp = []
@@ -32,7 +37,11 @@ export default function Destinations({dests}) {
       <Accordion className="destinations-list">{
         destinations.length > 0 && orderedDestinations.map((destination, idx) =>
           <Accordion.Item eventKey={idx} key={`${destination.id}`}>
-            <Accordion.Header>{idx + 1} - {destination.poi.name}</Accordion.Header>
+
+            <Accordion.Header>
+              {idx + 1} - {destination.poi.name}
+            </Accordion.Header>
+
             <Accordion.Body>
               <p>{destination.address.freeformAddress}</p>
               <Alert variant="info">
@@ -47,6 +56,7 @@ export default function Destinations({dests}) {
                 onClick={() => handleDelete(idx)}
               >Delete</Button>
             </Accordion.Body>
+
           </Accordion.Item>
         )
       }</Accordion>

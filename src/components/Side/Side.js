@@ -4,33 +4,27 @@ import Destinations from '../Destinations/Destinations';
 
 import { Stack, Tabs, Tab } from 'react-bootstrap';
 
+import useStore from "../../zustand/store";
+
 import './side.css';
 
-export default function Side({side}) {
-  const {origin, locationSuggestions, destinations, matrixData} = side.data
-  const {setOrigin, setDestinations} = side.methods
-  const locations = {
-    data: {origin, destinations, locationSuggestions},
-    methods: {setOrigin, setDestinations}
-  }
-  const dests = {
-    data: {destinations, matrixData},
-    methods: {setDestinations}
-  }
+export default function Side() {
+  const suggestions= useStore(state => state.suggestions)
 
   return (
     <Stack gap={2} className="side">
-      <Origin origin={{org: origin, locS: locationSuggestions}} />
+      <Origin />
 
-      { locationSuggestions.length > 0 &&
-      <Tabs defaultActiveKey="locations" transition={true}>
-        <Tab eventKey="locations" title="Locations">
-          <Locations locations={locations} />
-        </Tab>
-        <Tab eventKey="destinations" title="Destinations">
-          <Destinations dests={dests} />
-        </Tab>
-      </Tabs>
+      {suggestions &&
+        <Tabs defaultActiveKey="locations" transition={true}>
+          <Tab eventKey="locations" title="Locations">
+            <Locations />
+          </Tab>
+
+          <Tab eventKey="destinations" title="Destinations">
+            <Destinations />
+          </Tab>
+        </Tabs>
       }
 
     </Stack>

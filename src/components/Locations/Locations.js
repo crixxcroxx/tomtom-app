@@ -2,13 +2,21 @@ import { useState, useEffect } from 'react';
 
 import { Stack } from 'react-bootstrap';
 
+import useStore from "../../zustand/store";
+
 import './location.css';
 
-export default function Locations({locations}) {
-  const {origin, destinations, locationSuggestions} = locations.data
-  const {setOrigin, setDestinations} = locations.methods
+export default function Locations() {
   const [location, setLocation] = useState({})
   const [divID, setDivID] = useState("")
+
+  const {
+    origin,
+    suggestions,
+    destinations,
+    setOrigin,
+    setDestinations
+  } = useStore(state => state)
 
   const addDestination = (obj) => {
     obj.custom_id = destinations.length + 1
@@ -32,10 +40,10 @@ export default function Locations({locations}) {
 
   return(
     <>{
-      locationSuggestions.length > 0 && <div className="locations">
+      suggestions.length > 0 && <div className="locations">
 
         <Stack gap={3} className="location-suggestions">{
-          locationSuggestions.map(loc => (
+          suggestions.map(loc => (
             <div
               className="location"
               key={`${loc.id}`}

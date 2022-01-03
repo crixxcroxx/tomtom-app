@@ -1,16 +1,18 @@
 import { Container } from 'react-bootstrap';
 
+import useStore from "../../zustand/store";
+
 import './origin.css';
 
-export default function Origin(props) {
-  const {org: origin, locS: locationSuggestions} = props.origin
+export default function Origin() {
+  const { origin, suggestions } = useStore(state => state)
 
   return (
     <Container className="origin">
-      { locationSuggestions.length === 0 &&
+      { suggestions.length === 0 &&
         <i>Search or Click on the map to select location</i>
       }
-      { locationSuggestions.length > 0 && Object.keys(origin).length === 0 &&
+      { suggestions.length > 0 && Object.keys(origin).length === 0 &&
         <i>Select origin</i>
       }
 
